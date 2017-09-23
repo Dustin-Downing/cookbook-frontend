@@ -1,6 +1,6 @@
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-    
+
 export function configureFakeBackend() {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
@@ -15,7 +15,7 @@ export function configureFakeBackend() {
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.username === params.username && user.password === params.password;
+                        return user.email === params.email && user.password === params.password;
                     });
 
                     if (filteredUsers.length) {
@@ -23,9 +23,8 @@ export function configureFakeBackend() {
                         let user = filteredUsers[0];
                         let responseJson = {
                             id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
+                            email: user.email,
+                            name: user.name,
                             token: 'fake-jwt-token'
                         };
                         resolve({ ok: true, json: () => responseJson });

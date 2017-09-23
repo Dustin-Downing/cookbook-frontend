@@ -10,11 +10,11 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
+function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     };
 
     return fetch('/users/authenticate', requestOptions)
@@ -27,7 +27,7 @@ function login(username, password) {
         })
         .then(user => {
             // login successful if there's a jwt token in the response
-            if (user && user.token) {
+            if (user && user.auth_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
             }
@@ -60,7 +60,6 @@ function getById(id) {
 }
 
 function register(user) {
-  // TODO: add email and password, no username
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,25 +96,3 @@ function handleResponse(response) {
 
     return response.json();
 }
-
-
-// login,
-// '/users/authenticate'
-// 
-// logout,
-// localStorage.removeItem('user');
-//
-// register,
-// '/users/register'
-//
-// getAll,
-// '/users'
-//
-// getById,
-// '/users/' + _id
-//
-// update,
-// '/users/' + _id
-//
-// delete: _delete
-// '/users/' + _id

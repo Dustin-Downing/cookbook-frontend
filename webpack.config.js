@@ -28,6 +28,9 @@ module.exports = {
         inject: 'body'
     })],
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+          '/': 'http://localhost:3001/'
+        }
     }
 }
