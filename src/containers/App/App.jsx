@@ -2,10 +2,11 @@ import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { history } from '../_helpers';
-import { alertActions } from '../_actions';
-import { PrivateRoute } from '../_components';
+import { history } from '../../_helpers';
+import { alertActions } from '../../_actions';
+import { PrivateRoute } from '../../_components';
 import { HomePage } from '../HomePage';
+import { ListPage } from '../ListPage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 
@@ -31,6 +32,7 @@ class App extends React.Component {
                         }
                         <Router history={history}>
                             <div>
+                                <PrivateRoute exact path="/list" component={ListPage} />
                                 <PrivateRoute exact path="/" component={HomePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
@@ -51,4 +53,4 @@ function mapStateToProps(state) {
 }
 
 const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App }; 
+export { connectedApp as App };
