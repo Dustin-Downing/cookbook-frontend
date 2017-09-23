@@ -19,7 +19,7 @@ function login(username, password) {
 
     return fetch('/users/authenticate', requestOptions)
         .then(response => {
-            if (!response.ok) { 
+            if (!response.ok) {
                 return Promise.reject(response.statusText);
             }
 
@@ -60,6 +60,7 @@ function getById(id) {
 }
 
 function register(user) {
+  // TODO: add email and password, no username
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -90,9 +91,31 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
-    if (!response.ok) { 
+    if (!response.ok) {
         return Promise.reject(response.statusText);
     }
 
     return response.json();
 }
+
+
+// login,
+// '/users/authenticate'
+// 
+// logout,
+// localStorage.removeItem('user');
+//
+// register,
+// '/users/register'
+//
+// getAll,
+// '/users'
+//
+// getById,
+// '/users/' + _id
+//
+// update,
+// '/users/' + _id
+//
+// delete: _delete
+// '/users/' + _id
