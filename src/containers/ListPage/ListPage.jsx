@@ -13,10 +13,13 @@ class ListPage extends React.Component {
         const { user, users } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>ListPage</h1>
+                <h1>Shopping List</h1>
                 <p>You're logged in with React!!</p>
                 <p>
-                    <Link to="/login">Logout</Link>
+                  <Link to="/">Home</Link>
+                </p>
+                <p>
+                  <Link to="/login">Logout</Link>
                 </p>
             </div>
         );

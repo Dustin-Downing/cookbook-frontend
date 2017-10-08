@@ -10,8 +10,8 @@ import { App } from './containers/App';
 // configureFakeBackend();
 
 render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('app')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
 );
