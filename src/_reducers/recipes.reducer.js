@@ -73,7 +73,7 @@ export function recipes(state = {}, action) {
   }
 }
 
-// 
+//
 // UPDATE_REQUEST: 'RECIPE_UPDATE_REQUEST',
 // UPDATE_SUCCESS: 'RECIPE_UPDATE_SUCCESS',
 // UPDATE_FAILURE: 'RECIPE_UPDATE_FAILURE',

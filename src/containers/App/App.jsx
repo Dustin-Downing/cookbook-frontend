@@ -7,8 +7,6 @@ import { alertActions } from '../../_actions';
 import { PrivateRoute } from '../../_components';
 import { HomePage } from '../HomePage';
 import { ListPage } from '../ListPage';
-import { RecipePage } from '../RecipePage';
-import { RecipeFormPage } from '../RecipeFormPage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 
@@ -35,8 +33,6 @@ class App extends React.Component {
             <Router history={history}>
               <div>
                 <PrivateRoute exact path="/list" component={ListPage} />
-                <PrivateRoute exact path="/recipes" component={RecipePage} />
-                <PrivateRoute exact path="/form" component={RecipeFormPage} />
                 <PrivateRoute exact path="/" component={HomePage} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
