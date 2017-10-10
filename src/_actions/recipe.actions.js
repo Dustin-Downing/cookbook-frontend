@@ -8,6 +8,7 @@ export const recipeActions = {
   getAll,
   getById,
   update,
+  clearSelected,
   delete: _delete
 };
 
@@ -50,36 +51,45 @@ function getAll() {
   function failure(error) { return { type: recipeConstants.GETALL_FAILURE, error } }
 }
 
-function getById() {
+function getById(id) {
   return dispatch => {
     dispatch(request());
 
-    recipeService.getById()
+    recipeService.getById(id)
       .then(
-        recipes => dispatch(success(recipes)),
+        recipe => dispatch(success(recipe)),
         error => dispatch(failure(error))
       );
   };
 
   function request() { return { type: recipeConstants.GETONE_REQUEST } }
-  function success(recipes) { return { type: recipeConstants.GETONE_SUCCESS, recipes } }
+  function success(recipe) { return { type: recipeConstants.GETONE_SUCCESS, recipe } }
   function failure(error) { return { type: recipeConstants.GETONE_FAILURE, error } }
 }
 
-function update() {
+function update(recipe) {
   return dispatch => {
     dispatch(request());
 
-    recipeService.update()
+    recipeService.update(recipe)
       .then(
-          recipes => dispatch(success(recipes)),
+          recipe => dispatch(success(recipe)),
           error => dispatch(failure(error))
       );
   };
 
   function request() { return { type: recipeConstants.UPDATE_REQUEST } }
-  function success(recipes) { return { type: recipeConstants.UPDATE_SUCCESS, recipes } }
+  function success(recipe) { return { type: recipeConstants.UPDATE_SUCCESS, recipe } }
   function failure(error) { return { type: recipeConstants.UPDATE_FAILURE, error } }
+}
+
+// clears the current selected recipe for creating new recipes
+function clearSelected() {
+  return dispatch => {
+    dispatch(request());
+  };
+
+  function request() { return { type: recipeConstants.CLEARSELECTED_REQUEST } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

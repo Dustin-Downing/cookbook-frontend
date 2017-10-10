@@ -34,7 +34,7 @@ function getById(id) {
     headers: authHeader()
   };
 
-  return fetch('/recipes/' + _id, requestOptions).then(handleResponse);
+  return fetch('/recipes/' + id, requestOptions).then(handleResponse);
 }
 
 function update(recipe) {

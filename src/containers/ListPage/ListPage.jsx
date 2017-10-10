@@ -1,38 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../../_actions';
+import { NavBar } from '../../_components';
+
 
 class ListPage extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(userActions.getAll());
+  constructor(props) {
+    super(props);
+    this.onClear = this.onClear.bind(this);
+  }
+
+  onClear() {
+    this.props.dispatch(recipeActions.clearSelected());
   }
 
   render() {
-    const { user, users } = this.props;
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <h1>Shopping List</h1>
-        <p>You're logged in with React!!</p>
-        <p>
-          <Link to="/">Home</Link>
-        </p>
-        <p>
-          <Link to="/login">Logout</Link>
-        </p>
+      <div className="col-md-10 col-md-offset-1">
+        <NavBar onClear={this.onClear}/>
+        <h1 style={{textAlign: "center"}}>Shopping List</h1>
+        <p>Comming soon...</p>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
+  return {};
 }
 
 const connectedListPage = connect(mapStateToProps)(ListPage);

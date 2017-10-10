@@ -2,76 +2,49 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
 
-import { recipeActions } from '../../_actions';
+import { recipeActions, modalActions } from '../../_actions';
 import { RecipePreview, NavBar, Recipe } from '../../_components';
 
 class HomePage extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      showModal: false,
-      recipe: {}
-    };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+  constructor(props) {
+    super(props);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+    this.onClear = this.onClear.bind(this);
   }
 
-  handleOpenModal (recipe) {
-    this.setState({ showModal: true, recipe: recipe });
+  onClear() {
+    this.props.dispatch(recipeActions.clearSelected());
   }
 
-  handleCloseModal () {
-    this.setState({ showModal: false });
+  onOpenModal (recipe) {
+    this.props.dispatch(modalActions.open());
+    this.props.dispatch(recipeActions.getById(recipe.id));
+  }
+
+  onCloseModal () {
+    this.props.dispatch(modalActions.close());
   }
 
   componentDidMount() {
     this.props.dispatch(recipeActions.getAll());
   }
 
-  dummyRecipes() {
-    return [
-      {
-        created_at: "2017-10-08T15:34:21.384Z",
-        description: "Facilis et culpa temporibus.",
-        id: 1,
-        name: "temporibus",
-        time: 43,
-        updated_at: "2017-10-08T15:34:21.384Z",
-      },
-      {
-        created_at: "2017-10-08T15:34:21.384Z",
-        description: "Sit adipisci quod et ut.",
-        id: 2,
-        name: "est",
-        time: 77,
-        updated_at: "2017-10-08T15:34:21.384Z",
-      },
-      {
-        created_at: "2017-10-08T15:34:21.384Z",
-        description: "Omnis dolore inventore culpa voluptatem voluptate cum ad.",
-        id: 3,
-        name: "non",
-        time: 18,
-        updated_at: "2017-10-08T15:34:21.384Z",
-      }
-    ]
-  }
-
   render() {
-    const { recipes } = this.props;
-    const recipeList = this.dummyRecipes().map(recipe => {
-      return <RecipePreview onClick={this.handleOpenModal} key={recipe.id} recipe={recipe} />
+    const { recipes, modal } = this.props;
+    const recipeList = (recipes.items) && recipes.items.map(recipe => {
+      return <RecipePreview onClick={this.onOpenModal} key={recipe.id} recipe={recipe} />
     })
 
     return (
-      <div className="col-md-8 col-md-offset-2">
-        <NavBar />
+      <div className="col-md-10 col-md-offset-1">
+        <NavBar onClear={this.onClear}/>
+        <h1 style={{textAlign: "center"}}>Cook Book</h1>
         {recipeList}
         <ReactModal
-           isOpen={this.state.showModal}
+           isOpen={modal.showModal}
            contentLabel="Minimal Modal Example">
-          <Recipe recipe={this.state.recipe} onClose={this.handleCloseModal}/>
+          {recipes.item && <Recipe recipe={recipes.item} onClose={this.onCloseModal}/>}
         </ReactModal>
       </div>
     );
@@ -79,14 +52,10 @@ class HomePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps");
-  console.log(state);
-  const { users, authentication, recipes } = state;
-  const { user } = authentication;
+  const { recipes, modal } = state;
   return {
-    user,
-    users,
-    recipes
+    recipes,
+    modal
   };
 }
 

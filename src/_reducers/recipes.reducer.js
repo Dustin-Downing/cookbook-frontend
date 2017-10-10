@@ -28,15 +28,23 @@ export function recipes(state = {}, action) {
       };
     case recipeConstants.GETONE_REQUEST:
       return {
+        ...state,
         loading: true
       };
     case recipeConstants.GETONE_SUCCESS:
       return {
-        items: action.recipe
+        ...state,
+        item: action.recipe
       };
     case recipeConstants.GETONE_FAILURE:
       return {
+        ...state,
         error: action.error
+      };
+    case recipeConstants.RECIPE_CLEARSELECTED_REQUEST:
+      return {
+        ...state,
+        item: {}
       };
     case recipeConstants.DELETE_REQUEST:
       // add 'deleting:true' property to recipe being deleted
