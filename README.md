@@ -1,3 +1,5 @@
-# react-redux-registration-login-example
+# react/redux frontend
 
-React + Redux - User Registration and Login Tutorial & Example
+This the frontend for the Rails5 app found at
+
+<https://github.com/Dustin-Downing/cookbook-backend>
